@@ -1,8 +1,6 @@
-# Fluent::Plugin::Storage::Redis
+# Redis storage plugin for Fluent
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/fluent/plugin/storage/redis`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+fluent-plugin-storage-redis is a fluent plugin to store plugin state into redis.
 
 ## Installation
 
@@ -20,9 +18,21 @@ Or install it yourself as:
 
     $ gem install fluent-plugin-storage-redis
 
-## Usage
+Then fluent automatically loads the plugin installed.
 
-TODO: Write usage instructions here
+## Configuration
+
+    <store>
+      @type redis
+
+      path my_key # or conf.arg will be used as redis key
+      # database number is optional.
+      host localhost     # localhost is default
+      port 6379          # 637 is default
+      db_number 0        # 0 is default
+      # If requirepass is set, please specify this.
+      # password hogefuga
+    </match>
 
 ## Development
 
@@ -32,10 +42,12 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/fluent-plugin-storage-redis.
+Bug reports and pull requests are welcome on GitHub at https://github.com/cosmo0920/fluent-plugin-storage-redis.
 
+## Copyright
+
+Copyright (c) 2017- Hiroshi Hatake
 
 ## License
 
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
-
