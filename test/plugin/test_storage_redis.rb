@@ -48,38 +48,12 @@ class LocalStorageTest < Test::Unit::TestCase
 
 
   sub_test_case 'without any configuration' do
-    test 'works as on-memory redis storage' do
+    test 'raise Fluent::ConfigError' do
       conf = config_element()
 
-      @d.configure(conf)
-      @d.start
-      @p = @d.storage_create()
-
-      assert_nil @p.path
-      assert @p.store.empty?
-
-      assert_nil @p.get('key1')
-      assert_equal 'EMPTY', @p.fetch('key1', 'EMPTY')
-
-      @p.put('key1', '1')
-      assert_equal '1', @p.get('key1')
-
-      @p.update('key1') do |v|
-        (v.to_i * 2).to_s
+      assert_raise(Fluent::ConfigError) do
+        @d.configure(conf)
       end
-      assert_equal '2', @p.get('key1')
-
-      @p.save # on-memory redis storage does nothing...
-
-      @d.stop; @d.before_shutdown; @d.shutdown; @d.after_shutdown; @d.close; @d.terminate
-
-      # re-create to reload storage contents
-      @d = MyInput.new
-      @d.configure(conf)
-      @d.start
-      @p = @d.storage_create()
-
-      assert @p.store.empty?
     end
   end
 

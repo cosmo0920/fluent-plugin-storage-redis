@@ -6,7 +6,7 @@ module Fluent
     class RedisStorage < Storage
       Fluent::Plugin.register_storage('redis', self)
 
-      config_param :path, :string, default: nil
+      config_param :path, :string
       config_param :host, :string, default: 'localhost'
       config_param :port, :integer, default: 6379
       config_param :db_number, :integer, default: 0
@@ -31,11 +31,6 @@ module Fluent
 
       def configure(conf)
         super
-
-        @on_memory = false
-        unless @path
-          @on_memory = true
-        end
       end
 
       def multi_workers_ready?
@@ -43,7 +38,6 @@ module Fluent
       end
 
       def load
-        return if @on_memory
         begin
           json_string = @redis.get(@path)
           json = Yajl::Parser.parse(json_string)
@@ -59,7 +53,6 @@ module Fluent
       end
 
       def save
-        return if @on_memory
         begin
           json_string = Yajl::Encoder.encode(@store)
           @redis.pipelined {
