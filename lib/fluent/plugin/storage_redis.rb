@@ -18,15 +18,6 @@ module Fluent
         super
 
         @store = {}
-        options = {
-          host: @host,
-          port: @port,
-          thread_safe: true,
-          db: @db_number
-        }
-        options[:password] = @password if @password
-
-        @redis = Redis.new(options)
       end
 
       def configure(conf)
@@ -39,6 +30,16 @@ module Fluent
             raise Fluent::ConfigError, "path or conf.arg for <storage> is required."
           end
         end
+
+        options = {
+          host: @host,
+          port: @port,
+          thread_safe: true,
+          db: @db_number
+        }
+        options[:password] = @password if @password
+
+        @redis = Redis.new(options)
       end
 
       def multi_workers_ready?
