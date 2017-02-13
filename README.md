@@ -22,17 +22,18 @@ Then fluent automatically loads the plugin installed.
 
 ## Configuration
 
-    <store>
-      @type redis
+```aconf
+<store>
+  @type redis
 
-      path my_key # or conf.arg will be used as redis key
-      # database number is optional.
-      host localhost     # localhost is default
-      port 6379          # 637 is default
-      db_number 0        # 0 is default
-      # If requirepass is set, please specify this.
-      # password hogefuga
-    </match>
+  path my_key # or conf.arg will be used as redis key
+  host localhost     # localhost is default
+  port 6379          # 6379 is default
+  db_number 0        # 0 is default
+  # If requirepass is set, please specify this.
+  # password hogefuga
+</match>
+```
 
 ## Development
 
