@@ -1,5 +1,7 @@
 # Redis storage plugin for Fluent
 
+[![Build Status](https://travis-ci.org/cosmo0920/fluent-plugin-storage-redis.svg?branch=master)](https://travis-ci.org/cosmo0920/fluent-plugin-storage-redis)
+
 fluent-plugin-storage-redis is a fluent plugin to store plugin state into redis.
 
 ## Installation
