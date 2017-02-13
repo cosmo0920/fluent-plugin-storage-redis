@@ -101,4 +101,24 @@ class LocalStorageTest < Test::Unit::TestCase
       assert_equal 4, @p.get('key2')
     end
   end
+
+  sub_test_case 'configured with conf.arg' do
+    test 'works with customized path key by specified usage' do
+      storage_conf = {}
+      conf = config_element('ROOT', '', {}, [config_element('storage', "#{@path}", storage_conf)])
+      @d.configure(conf)
+      @d.start
+      @p = @d.storage_create(usage: "#{@path}")
+
+      assert_equal @path, @p.path
+      assert @p.store.empty?
+
+      @p.put('key1', '1')
+      assert_equal '1', @p.get('key1')
+
+      @p.save # stores all data into file
+
+      assert_equal({"key1"=>"1"}, @p.load)
+    end
+  end
 end

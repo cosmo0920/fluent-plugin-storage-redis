@@ -6,7 +6,7 @@ module Fluent
     class RedisStorage < Storage
       Fluent::Plugin.register_storage('redis', self)
 
-      config_param :path, :string
+      config_param :path, :string, default: nil
       config_param :host, :string, default: 'localhost'
       config_param :port, :integer, default: 6379
       config_param :db_number, :integer, default: 0
@@ -31,6 +31,14 @@ module Fluent
 
       def configure(conf)
         super
+
+        unless @path
+          if conf && !conf.arg.empty?
+            @path = conf.arg
+          else
+            raise Fluent::ConfigError, "path or conf.arg for <storage> is required."
+          end
+        end
       end
 
       def multi_workers_ready?
