@@ -40,6 +40,17 @@ module Fluent
         options[:password] = @password if @password
 
         @redis = Redis.new(options)
+
+        object = @redis.get(@path)
+        if object
+          begin
+            data = Yajl::Parser.parse(object)
+            raise Fluent::ConfigError, "Invalid contents (not object) in plugin redis storage: '#{@path}'" unless data.is_a?(Hash) unless data.is_a?(Hash)
+          rescue => e
+            log.error "failed to read data from plugin redis storage", path: @path, error: e
+            raise Fluent::ConfigError, "Unexpected error: failed to read data from plugin redis storage: '#{@path}'"
+          end
+        end
       end
 
       def multi_workers_ready?
