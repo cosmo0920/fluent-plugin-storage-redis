@@ -3,7 +3,7 @@ require 'fluent/test/helpers'
 require 'fluent/plugin/storage_redis'
 require 'fluent/plugin/input'
 
-class LocalStorageTest < Test::Unit::TestCase
+class RedisStorageTest < Test::Unit::TestCase
   include Fluent::Test::Helpers
 
   class MyInput < Fluent::Plugin::Input
