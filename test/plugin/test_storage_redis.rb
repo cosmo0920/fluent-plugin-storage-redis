@@ -2,7 +2,6 @@ require_relative '../helper'
 require 'fluent/test/helpers'
 require 'fluent/plugin/storage_redis'
 require 'fluent/plugin/input'
-require 'fluent/system_config'
 
 class LocalStorageTest < Test::Unit::TestCase
   include Fluent::Test::Helpers
