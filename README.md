@@ -25,7 +25,7 @@ Then fluent automatically loads the plugin installed.
 ## Configuration
 
 ```aconf
-<store>
+<storage>
   @type redis
 
   path my_key # or conf.arg will be used as redis key
@@ -34,7 +34,7 @@ Then fluent automatically loads the plugin installed.
   db_number 0        # 0 is default
   # If requirepass is set, please specify this.
   # password hogefuga
-</match>
+</storage>
 ```
 
 ## Development
