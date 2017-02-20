@@ -63,6 +63,7 @@ class RedisStorageTest < Test::Unit::TestCase
       @d.configure(conf)
       @d.start
       @p = @d.storage_create()
+      assert_true(@p.persistent)
 
       assert_equal storage_path, @p.path
       assert @p.store.empty?
@@ -108,6 +109,7 @@ class RedisStorageTest < Test::Unit::TestCase
       @d.configure(conf)
       @d.start
       @p = @d.storage_create(usage: "#{@path}")
+      assert_true(@p.persistent)
 
       assert_equal @path, @p.path
       assert @p.store.empty?

@@ -11,6 +11,8 @@ module Fluent
       config_param :port, :integer, default: 6379
       config_param :db_number, :integer, default: 0
       config_param :password, :string, default: nil, secret: true
+      # Set persistent true by default
+      config_set_default :persistent, true
 
       attr_reader :store # for test
 
@@ -54,6 +56,10 @@ module Fluent
       end
 
       def multi_workers_ready?
+        true
+      end
+
+      def persistent_always?
         true
       end
 
