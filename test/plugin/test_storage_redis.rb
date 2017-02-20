@@ -117,7 +117,7 @@ class RedisStorageTest < Test::Unit::TestCase
       @p.put('key1', '1')
       assert_equal '1', @p.get('key1')
 
-      @p.save # stores all data into file
+      @p.save # stores all data into redis
 
       assert_equal({"key1"=>"1"}, @p.load)
     end
