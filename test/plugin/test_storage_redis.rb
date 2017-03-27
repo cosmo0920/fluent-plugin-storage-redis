@@ -122,4 +122,32 @@ class RedisStorageTest < Test::Unit::TestCase
       assert_equal({"key1"=>"1"}, @p.load)
     end
   end
+
+  sub_test_case 'configured with ttl' do
+    test 'works with customized path key by specified usage' do
+      ttl = 2
+      storage_path = @path
+      conf = config_element('ROOT', '', {}, [config_element('storage', '', {
+                                                              'path' => storage_path,
+                                                              'ttl' => ttl,
+                                                            })])
+      @d.configure(conf)
+      @d.start
+      @p = @d.storage_create()
+      assert_true(@p.persistent)
+
+      assert_equal @path, @p.path
+      assert @p.store.empty?
+
+      @p.put('key1', '1')
+      assert_equal '1', @p.get('key1')
+
+      @p.save # stores all data into redis
+
+      assert_equal({"key1"=>"1"}, @p.load)
+
+      sleep ttl+1
+      assert_equal({}, @p.load)
+    end
+  end
 end
