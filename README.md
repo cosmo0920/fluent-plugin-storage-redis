@@ -34,6 +34,7 @@ Then fluent automatically loads the plugin installed.
   db_number 0        # 0 is default
   # If requirepass is set, please specify this.
   # password hogefuga
+  # ttl 300 # If 0 or negative value is set, ttl is not set in each key.
 </storage>
 ```
 
